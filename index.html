@@ -1,6 +1,761 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Swastika Naskar | Data & Product Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,600;0,700;1,300&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #0b1120;
+    --navy2: #111827;
+    --accent: #7c6af7;
+    --accent2: #a78bfa;
+    --light: #f8f7ff;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --card: #ffffff;
+    --text: #1e293b;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background: #fff;
+    line-height: 1.6;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+    background: rgba(11,17,32,0.96);
+    backdrop-filter: blur(12px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5vw;
+    height: 64px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-logo {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--accent2); }
+  nav ul {
+    list-style: none;
+    display: flex; gap: 2rem;
+  }
+  nav ul a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+  nav ul a:hover { color: #fff; }
+  .nav-hire {
+    background: var(--accent);
+    color: #fff !important;
+    padding: 0.45rem 1.1rem;
+    border-radius: 6px;
+    font-weight: 600 !important;
+  }
+  .nav-hire:hover { background: #6455e0 !important; color: #fff !important; }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex; align-items: center;
+    padding: 100px 5vw 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 60% at 70% 50%, rgba(124,106,247,0.15) 0%, transparent 70%);
+  }
+  .hero-inner {
+    max-width: 860px;
+    position: relative; z-index: 1;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(124,106,247,0.15);
+    border: 1px solid rgba(124,106,247,0.3);
+    color: var(--accent2);
+    font-size: 0.8rem; font-weight: 500;
+    padding: 0.4rem 1rem;
+    border-radius: 100px;
+    margin-bottom: 1.8rem;
+    letter-spacing: 0.05em;
+  }
+  .hero-badge::before { content: '●'; font-size: 0.6rem; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .hero-inner h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.8rem, 6vw, 4.5rem);
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.2rem;
+  }
+  .hero-inner h1 em {
+    font-style: italic;
+    color: var(--accent2);
+  }
+  .hero-tagline {
+    color: #94a3b8;
+    font-size: 1.05rem;
+    font-weight: 300;
+    max-width: 540px;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+  .hero-btns {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: #fff;
+    padding: 0.85rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+  }
+  .btn-primary:hover { background: #6455e0; transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: #fff;
+    padding: 0.85rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.5); }
+  .hero-stats {
+    display: flex; gap: 2.5rem;
+    margin-top: 4rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+  .stat-num {
+    font-family: 'Fraunces', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: #fff;
+    line-height: 1;
+  }
+  .stat-num span { color: var(--accent2); }
+  .stat-label {
+    font-size: 0.78rem;
+    color: #64748b;
+    margin-top: 0.3rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ── SECTION COMMON ── */
+  section:not(#hero) {
+    padding: 90px 5vw;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+  }
+  .section-title {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 600;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+    line-height: 1.2;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .about-text p {
+    color: #475569;
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+  }
+  .about-highlights {
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .highlight-item {
+    background: var(--light);
+    border-left: 3px solid var(--accent);
+    padding: 1rem 1.2rem;
+    border-radius: 0 8px 8px 0;
+  }
+  .highlight-item strong {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.2rem;
+  }
+  .highlight-item span { font-size: 0.95rem; color: var(--text); }
+
+  /* ── SKILLS ── */
+  #skills { background: #fafafa; max-width: none; }
+  #skills > .inner { max-width: 1100px; margin: 0 auto; }
+  .skills-categories {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+  }
+  .skill-cat {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.5rem;
+  }
+  .skill-cat-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .skill-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+  }
+  .skill-tag {
+    background: #f1f0ff;
+    color: #5b4fcf;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.3rem 0.75rem;
+    border-radius: 6px;
+  }
+
+  /* ── PROJECTS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+  }
+  .project-card {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.8rem;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+  .project-card:hover::before { opacity: 1; }
+  .project-num {
+    font-family: 'Fraunces', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #f0eeff;
+    line-height: 1;
+    margin-bottom: 0.8rem;
+  }
+  .project-card h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    color: var(--navy);
+  }
+  .project-tech {
+    font-size: 0.78rem;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.03em;
+  }
+  .project-card p {
+    font-size: 0.88rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+  }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: gap 0.2s;
+  }
+  .project-link:hover { gap: 0.7rem; }
+
+  /* ── EXPERIENCE ── */
+  .exp-timeline {
+    display: flex; flex-direction: column; gap: 0;
+    position: relative;
+  }
+  .exp-timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px; top: 8px; bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+  .exp-item {
+    padding-left: 2.5rem;
+    position: relative;
+    padding-bottom: 3rem;
+  }
+  .exp-item:last-child { padding-bottom: 0; }
+  .exp-dot {
+    position: absolute; left: 0; top: 6px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .exp-meta {
+    display: flex; align-items: center; gap: 0.8rem;
+    margin-bottom: 0.4rem; flex-wrap: wrap;
+  }
+  .exp-company {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: #f1f0ff;
+    color: #5b4fcf;
+    padding: 0.25rem 0.7rem;
+    border-radius: 5px;
+  }
+  .exp-duration {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .exp-item h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 1rem;
+  }
+  .exp-item ul {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 0.6rem;
+  }
+  .exp-item ul li {
+    font-size: 0.9rem;
+    color: #475569;
+    line-height: 1.6;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+  .exp-item ul li::before {
+    content: '→';
+    position: absolute; left: 0;
+    color: var(--accent);
+    font-size: 0.8rem;
+  }
+
+  /* ── CERTIFICATIONS ── */
+  #certifications { background: #fafafa; max-width: none; }
+  #certifications > .inner { max-width: 1100px; margin: 0 auto; }
+  .cert-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+  .cert-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.4rem 1.6rem;
+    display: flex; align-items: center; gap: 1rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .cert-card:hover { border-color: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,106,247,0.1); }
+  .cert-icon {
+    font-size: 1.8rem; flex-shrink: 0;
+  }
+  .cert-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.15rem;
+  }
+  .cert-issuer {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+
+  /* ── HIRE ME ── */
+  #contact {
+    background: var(--navy);
+    max-width: none;
+    padding: 100px 5vw;
+  }
+  .hire-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .hire-inner .section-label { color: var(--accent2); }
+  .hire-inner .section-title { color: #fff; margin-bottom: 1rem; }
+  .hire-desc {
+    color: #94a3b8;
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 3rem;
+  }
+  .hire-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    padding: 3rem 2.5rem;
+  }
+  .hire-email {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: 1rem 2.5rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    transition: all 0.2s;
+    letter-spacing: 0.01em;
+  }
+  .hire-email:hover { background: #6455e0; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(124,106,247,0.4); }
+  .hire-socials {
+    display: flex; justify-content: center; gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .hire-socials a {
+    color: #64748b;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+    display: flex; align-items: center; gap: 0.4rem;
+  }
+  .hire-socials a:hover { color: #fff; }
+  .hire-divider {
+    color: #1e3a5f;
+    margin: 0 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #070d1a;
+    text-align: center;
+    padding: 1.8rem;
+    color: #334155;
+    font-size: 0.8rem;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 700px) {
+    nav ul { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+    .hero-inner h1 { font-size: 2.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Swastika <span>Naskar</span></div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#certifications">Certifications</a></li>
+    <li><a href="#contact" class="nav-hire">Hire Me</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Available for Opportunities</div>
+    <h1>Data that drives<br/><em>decisions.</em></h1>
+    <p class="hero-tagline">Hi, I'm Swastika — a Product & Growth Analyst with hands-on experience at two startups, turning messy data into clarity that teams can actually act on.</p>
+    <div class="hero-btns">
+      <a href="resume.pdf" download class="btn-primary">Download Resume</a>
+      <a href="#contact" class="btn-ghost">Let's Talk →</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">5<span>+</span></div>
+        <div class="stat-label">Months Experience</div>
+      </div>
+      <div>
+        <div class="stat-num">2</div>
+        <div class="stat-label">Startups</div>
+      </div>
+      <div>
+        <div class="stat-num">3</div>
+        <div class="stat-label">ML Projects</div>
+      </div>
+      <div>
+        <div class="stat-num">94<span>%</span></div>
+        <div class="stat-label">Model Accuracy</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About Me</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <div class="section-title" style="margin-bottom:1.5rem">Bridging data &<br/>product thinking</div>
+      <p>I'm an Electronics & Telecommunications Engineering student at BMSIT&M with a strong passion for analytics, product thinking, and AI-driven solutions.</p>
+      <p>Over the past 5 months, I've worked across two startups — Meetmux and Jurix AI — building dashboards, validating datasets, and converting raw product signals into actionable metrics for leadership teams.</p>
+      <p>I love the moment when a dataset stops being numbers and starts telling a story.</p>
+    </div>
+    <div class="about-highlights">
+      <div class="highlight-item">
+        <strong>Education</strong>
+        <span>Electronics & Telecommunications · BMSIT&M</span>
+      </div>
+      <div class="highlight-item">
+        <strong>Focus Area</strong>
+        <span>Product Analytics · Growth Metrics · ML</span>
+      </div>
+      <div class="highlight-item">
+        <strong>Currently Open To</strong>
+        <span>Full-time · Internship · Freelance Analytics</span>
+      </div>
+      <div class="highlight-item">
+        <strong>Location</strong>
+        <span>Bangalore, India</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="inner">
+    <div class="section-label">What I Know</div>
+    <div class="section-title">Skills & Tools</div>
+    <div class="skills-categories">
+      <div class="skill-cat">
+        <div class="skill-cat-title">Business & Consulting</div>
+        <div class="skill-tags">
+          <span class="skill-tag">BRD / FRD</span>
+          <span class="skill-tag">Process Mapping</span>
+          <span class="skill-tag">Documentation</span>
+          <span class="skill-tag">Testing & Validation</span>
+          <span class="skill-tag">Stakeholder Mgmt</span>
+          <span class="skill-tag">Cross-functional Collab</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-title">Analytics & Data</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Data Analysis</span>
+          <span class="skill-tag">KPI Tracking</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">BigQuery</span>
+          <span class="skill-tag">A/B Testing</span>
+          <span class="skill-tag">Funnel Analysis</span>
+          <span class="skill-tag">ETL</span>
+          <span class="skill-tag">Snowflake</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-title">Tools & Tech</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Power BI</span>
+          <span class="skill-tag">Tableau</span>
+          <span class="skill-tag">Excel</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">Oracle Cloud</span>
+          <span class="skill-tag">Prompt Engineering</span>
+          <span class="skill-tag">LLMs</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-title">Implementation</div>
+        <div class="skill-tags">
+          <span class="skill-tag">SDLC</span>
+          <span class="skill-tag">ERP / CRM</span>
+          <span class="skill-tag">Quality Assurance</span>
+          <span class="skill-tag">Workflow Design</span>
+          <span class="skill-tag">Data Warehousing</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Work</div>
+  <div class="section-title">Projects</div>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-num">01</div>
+      <h3>Loan Default Prediction</h3>
+      <div class="project-tech">Python · SQL · Scikit-learn · Risk Analytics</div>
+      <p>Assessed 5,000+ financial records; mapped risk indicators through feature analysis; delivered a credit model with 94% reliability.</p>
+      <a href="https://github.com/SwastikkaNaskar/Loan-Default-Prediction" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+    <div class="project-card">
+      <div class="project-num">02</div>
+      <h3>Sales Performance Dashboard</h3>
+      <div class="project-tech">Python · Power BI · SQL</div>
+      <p>Built an interactive BI dashboard mapping regional sales processes; improved performance tracking accuracy by 92% across 4 regions.</p>
+      <a href="https://github.com/SwastikkaNaskar/Sales-Performance-Dashboard" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+    <div class="project-card">
+      <div class="project-num">03</div>
+      <h3>Cervical Cancer Prediction</h3>
+      <div class="project-tech">Python · XGBoost · Healthcare ML</div>
+      <p>Applied XGBoost with feature selection and correlation mapping on clinical dataset; achieved 94% classification accuracy.</p>
+      <a href="https://github.com/SwastikkaNaskar/Cervical-Cancer-Detection" target="_blank" class="project-link">View on GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Career</div>
+  <div class="section-title">Experience</div>
+  <div class="exp-timeline">
+
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-meta">
+        <span class="exp-company">Jurix AI</span>
+        <span class="exp-duration">3 Months</span>
+      </div>
+      <h3>Product & Growth Analytics Intern</h3>
+      <ul>
+        <li>Assessed product and usage data to evaluate MVP features; reduced iteration cycles by 20% through structured analytical insights.</li>
+        <li>Converted LLM and RAG system outputs into measurable product metrics; improved cross-team data clarity by 25%.</li>
+        <li>Tracked usability metrics from internal QA tests; contributed to an estimated 15% improvement in feature quality and UX.</li>
+        <li>Supported A/B testing analysis for 2 product experiments; delivered data-backed insights guiding feature prioritisation.</li>
+      </ul>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-dot"></div>
+      <div class="exp-meta">
+        <span class="exp-company">Meetmux</span>
+        <span class="exp-duration">2 Months</span>
+      </div>
+      <h3>Product & Growth Analytics Intern</h3>
+      <ul>
+        <li>Partnered with product and business teams to assess customer behavior across 3 cities; improved lead conversion by 15%.</li>
+        <li>Developed predictive KPI dashboards in Python and Power BI; tracked 10+ real-time business metrics for leadership review.</li>
+        <li>Validated 10,000+ records ensuring 98% accuracy; documented analytics workflows supporting governance and audit readiness.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="inner">
+    <div class="section-label">Credentials</div>
+    <div class="section-title">Certifications</div>
+    <div class="cert-grid">
+      <a href="https://coursera.org/share/8666446ded625c4c57a478122736b06f" target="_blank" class="cert-card">
+        <div class="cert-icon">🎓</div>
+        <div>
+          <div class="cert-name">Google Data Analytics</div>
+          <div class="cert-issuer">Coursera · Google</div>
+        </div>
+      </a>
+      <a href="https://www.coursera.org/account/accomplishments/verify/L5HHVE78NY2V" target="_blank" class="cert-card">
+        <div class="cert-icon">🤖</div>
+        <div>
+          <div class="cert-name">Generative AI & LLMs</div>
+          <div class="cert-issuer">Coursera · IBM</div>
+        </div>
+      </a>
+      <div class="cert-card" style="cursor:default;">
+        <div class="cert-icon">⚡</div>
+        <div>
+          <div class="cert-name">Agile Project Management</div>
+          <div class="cert-issuer">Google</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HIRE ME -->
+<section id="contact">
+  <div class="hire-inner">
+    <div class="section-label">Let's Connect</div>
+    <div class="section-title">Open to<br/>Opportunities</div>
+    <p class="hire-desc">Looking for a data analyst, product analytics intern, or a curious problem-solver who ships insights fast? I'd love to hear from you.</p>
+    <div class="hire-card">
+      <a href="mailto:swasthikka202@gmail.com?subject=Opportunity%20for%20Swastika&body=Hi%20Swastika%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20would%20love%20to%20connect.%0A%0ALooking%20forward%20to%20hearing%20from%20you!" class="hire-email">
+        📧 swasthikka202@gmail.com
+      </a>
+      <div class="hire-socials">
+        <a href="https://www.linkedin.com/in/swastika-naskar-2435661a2/" target="_blank">🔗 LinkedIn</a>
+        <span class="hire-divider">·</span>
+        <a href="https://github.com/SwastikkaNaskar" target="_blank">🐙 GitHub</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Made with care by Swastika Naskar · 2025
+</footer>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Swastika Naskar | Portfolio</title>
